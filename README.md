@@ -30,3 +30,24 @@ While the HMI provides a way for operators to interface with an ICS process, but
 ![Capture](https://github.com/IzharSalvanaSyed/GRFICS-HMIs-and-ARP-Spoofing/assets/156041933/247eafd9-b66a-4eef-9083-22b45804283d)
 
 ## ARP spoogfing <a name="spoofing">
+If you havent started up yout Kali Linux VM, this would be the time to start it up, the login is "kali" and "kali.". The first thing we are gonna try to do as an attacker is find the IP address of the PLC. We as an attacker expect that the PLC is communicating with an HMI. Since we are already in the same DMZ subnet as the HMI we just need to sniff out the IP address of the PLC. We will be performaing an attack known as ARP spoofing to intercept traffice that is intended for the HMI and then sniff the traffic to try to find the IP address of the PLC.  
+
+Since we already know the IP address of the HMI that we are trying to spoof is "192.168.90.5"
+
+Open a terminal in the Kali VM.  
+Type sudo arpspoof "192.168.90.5"  
+if prompted to input a password type in "kali"  
+We should be now recieving packets that were intended for the HMI  
+![image](https://github.com/IzharSalvanaSyed/GRFICS-HMIs-and-ARP-Spoofing/assets/156041933/0b0447b7-524e-462e-a103-8b0854927b68)
+
+To sniff that traffic we will us a program called Wireshark.  
+Go to the top right of the KLI vm, click on the Kali icon  
+Hover over "Sniffing & Spoofing," find and open Wireshark
+Once Open find "eth0" and click it open  
+you should now see a running list of network traffic   
+we should be seeing running list of network traffic on this network interface  
+we should also see a lot of traffic that is too and from to different IP addresses.
+"192.168.90.5" and "192.168.95.2"  
+We already know the IP address of the HMI so we can presume that the PLC IP address is "192.168.95.2."
+
+![image](https://github.com/IzharSalvanaSyed/GRFICS-HMIs-and-ARP-Spoofing/assets/156041933/8a5d8cba-8789-44cd-a66f-a300c76b8cf0)
